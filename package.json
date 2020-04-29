@@ -1,0 +1,32 @@
+{
+  "name": "tags-list",
+  "version": "1.0.0",
+  "description": "creates, edits, removes and list tags",
+  "author": "jaqusa",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt-ts",
+    "build": "nuxt-ts build",
+    "generate": "nuxt-ts generate",
+    "start": "nuxt-ts start",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@nuxt/typescript-runtime": "^0.4.0",
+    "nuxt": "^2.0.0",
+    "nuxt-property-decorator": "^2.7.2"
+  },
+  "devDependencies": {
+    "@nuxt/typescript-build": "^0.6.0",
+    "@vue/test-utils": "^1.0.0-beta.27",
+    "babel-jest": "^24.1.0",
+    "babel-plugin-import": "^1.13.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "jest": "^24.1.0",
+    "prettier": "^1.19.1",
+    "ts-jest": "^25.0.0",
+    "vue-jest": "^4.0.0-0",
+    "vuex-module-decorators": "^0.17.0"
+  }
+}
