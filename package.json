@@ -9,12 +9,16 @@
     "build": "nuxt-ts build",
     "generate": "nuxt-ts generate",
     "start": "nuxt-ts start",
-    "test": "jest"
+    "test": "jest",
+    "server": "cross-env NODE_ENV=production ts-node --project 'server/tsconfig.json' server/src/index.ts",
+    "compile": "tsc server/src/index.ts"
   },
   "dependencies": {
     "@nuxt/typescript-runtime": "^0.4.0",
     "nuxt": "^2.0.0",
-    "nuxt-property-decorator": "^2.7.2"
+    "nuxt-property-decorator": "^2.7.2",
+    "socket.io-client": "^2.3.0",
+    "vue-socket.io-extended": "^4.0.1"
   },
   "devDependencies": {
     "@nuxt/typescript-build": "^0.6.0",

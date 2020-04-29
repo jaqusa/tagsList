@@ -1,5 +1,6 @@
-import { Module, VuexModule, Mutation } from 'vuex-module-decorators'
+import { Module, VuexModule, Mutation, Action } from 'vuex-module-decorators'
 import { ITag } from '../models'
+import Vue from 'vue'
 
 @Module({
   name: 'tag',
@@ -14,10 +15,6 @@ export default class Tag extends VuexModule {
     index: -1
   }
 
-  get Tags(): Array<ITag> {
-    return this.tags
-  }
-
   @Mutation
   addTag(newTag: ITag): void {
     this.tags.unshift(newTag)
@@ -25,12 +22,13 @@ export default class Tag extends VuexModule {
 
   @Mutation
   editTag(tag: ITag): void {
-    this.tags[tag.index] = tag
+    this.tags.splice(tag.index, 1, tag)
     this.toEdit = {
       text: '',
       color: '',
       index: -1
     }
+    Vue.prototype.$socket.client.emit('editTag', tag)
   }
 
   @Mutation

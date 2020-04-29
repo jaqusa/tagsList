@@ -1,6 +1,8 @@
-# Tags-List
+# Tags List
 
-> creates, edits, removes and list tags
+> Creates, edits, removes and list tags in real time
+
+Development by Jaqusa with NuxtJs in Client and NestJs in Server.
 
 ## Build Setup
 
@@ -8,15 +10,12 @@
 # install dependencies
 $ yarn install
 
-# serve with hot reload at localhost:3000
+# Move to the /client directory and you run
+# client with hot reload at localhost:3000
 $ yarn dev
 
-# build for production and launch server
-$ yarn build
-$ yarn start
+# Move to the / server directory and you run
+# serve with hot reload at localhost:4000
+$ yarn start:dev
 
-# generate static project
-$ yarn generate
 ```
-
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).

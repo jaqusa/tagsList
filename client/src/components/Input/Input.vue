@@ -27,7 +27,14 @@ export default class Input extends Vue {
 
   @Watch('toEdit')
   changeNewTag(toEdit: ITag) {
-    this.newTag.text = this.toEdit.index ? this.toEdit.text : ''
+    this.newTag =
+      this.toEdit.index > -1
+        ? { ...this.toEdit }
+        : (this.newTag = {
+            text: '',
+            color: '',
+            index: -1
+          })
   }
 
   @Emit('addTag')
@@ -37,7 +44,7 @@ export default class Input extends Vue {
       tag = {
         text: this.newTag.text,
         color: '',
-        index: 0
+        index: -1
       }
     } else {
       tag = {

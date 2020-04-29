@@ -29,12 +29,26 @@ export default class TagsList extends Vue {
     return '#' + Math.floor(Math.random() * 16777215 + 1).toString(16)
   }
 
+  //TODO organize calls to functions and server
+  beforeMount() {
+    Vue.prototype.$socket.client.on('removeTag', (data: number) => {
+      console.log(data)
+      this.remove(data)
+    })
+    Vue.prototype.$socket.client.on('addTag', (data: ITag) => {
+      if (data.index < 0) {
+        data.color = this.randomColor()
+        this.addTag(data)
+      } else this.editTag(data)
+    })
+    Vue.prototype.$socket.client.on('editTag', (data: ITag) => {
+      this.add(data)
+    })
+  }
+
   add(newTag: ITag): void {
     if (newTag.text) {
-      if (newTag.index === 0) {
-        newTag.color = this.randomColor()
-        this.addTag(newTag)
-      } else this.editTag(newTag)
+      Vue.prototype.$socket.client.emit('addTag', newTag)
     }
   }
 
@@ -49,7 +63,8 @@ export default class TagsList extends Vue {
   removeTag!: (tag: number) => void
 
   remove(index: number): void {
-    this.removeTag(index)
+    console.log('re')
+    Vue.prototype.$socket.client.emit('removeTag', index)
   }
 }
 </script>
