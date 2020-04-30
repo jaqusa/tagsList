@@ -1,6 +1,5 @@
-import { Module, VuexModule, Mutation, Action } from 'vuex-module-decorators'
+import { Module, VuexModule, Mutation } from 'vuex-module-decorators'
 import { ITag } from '../models'
-import Vue from 'vue'
 
 @Module({
   name: 'tag',
