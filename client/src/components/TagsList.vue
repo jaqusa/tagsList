@@ -19,21 +19,10 @@ const tag = namespace('tag')
   }
 })
 export default class TagsList extends Vue {
-  @tag.Mutation
-  addTag!: (tag: ITag) => void
-
-  @tag.Mutation
-  editTag!: (tag: ITag) => void
-
-  randomColor(): String {
-    return '#' + Math.floor(Math.random() * 16777215 + 1).toString(16)
-  }
-
   //TODO organize calls to functions and server
   beforeMount() {
     Vue.prototype.$socket.client.on('removeTag', (data: number) => {
-      console.log(data)
-      this.remove(data)
+      this.removeTag(data)
     })
     Vue.prototype.$socket.client.on('addTag', (data: ITag) => {
       if (data.index < 0) {
@@ -51,6 +40,15 @@ export default class TagsList extends Vue {
       Vue.prototype.$socket.client.emit('addTag', newTag)
     }
   }
+  @tag.Mutation
+  addTag!: (tag: ITag) => void
+
+  @tag.Mutation
+  editTag!: (tag: ITag) => void
+
+  randomColor(): String {
+    return '#' + Math.floor(Math.random() * 16777215 + 1).toString(16)
+  }
 
   @tag.Mutation
   tagToEdit!: (tag: number) => void
@@ -63,7 +61,6 @@ export default class TagsList extends Vue {
   removeTag!: (tag: number) => void
 
   remove(index: number): void {
-    console.log('re')
     Vue.prototype.$socket.client.emit('removeTag', index)
   }
 }
