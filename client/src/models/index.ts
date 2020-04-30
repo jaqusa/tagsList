@@ -1,3 +1,3 @@
 import { ITag } from './ITag'
-
-export { ITag }
+import { socketEvents } from './socketEvents'
+export { ITag, socketEvents }

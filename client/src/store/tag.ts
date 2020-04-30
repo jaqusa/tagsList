@@ -28,7 +28,6 @@ export default class Tag extends VuexModule {
       color: '',
       index: -1
     }
-    Vue.prototype.$socket.client.emit('editTag', tag)
   }
 
   @Mutation

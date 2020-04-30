@@ -11,6 +11,7 @@ import {
 } from '@nestjs/websockets';
 import { Logger } from '@nestjs/common';
 import { Socket, Server } from 'socket.io';
+import { socketEvents } from './app.keys';
 
 @WebSocketGateway()
 export class AppGateway
@@ -30,24 +31,24 @@ export class AppGateway
     this.logger.log(`Client connected: ${client.id}`);
   }
 
-  @SubscribeMessage('addTag')
+  @SubscribeMessage(socketEvents.addTag)
   addTag(@MessageBody() data: Object, @ConnectedSocket() client: Socket): void {
-    this.wss.emit('addTag', data);
+    this.wss.emit(socketEvents.addTag, data);
   }
 
-  @SubscribeMessage('editTag')
+  @SubscribeMessage(socketEvents.editTag)
   editTag(
     @MessageBody() data: Object,
     @ConnectedSocket() client: Socket,
   ): void {
-    this.wss.emit('aditTag', data);
+    this.wss.emit(socketEvents.editTag, data);
   }
 
-  @SubscribeMessage('removeTag')
+  @SubscribeMessage(socketEvents.removeTag)
   removeTag(
     @MessageBody() data: number,
     @ConnectedSocket() client: Socket,
   ): void {
-    this.wss.emit('removeTag', data);
+    this.wss.emit(socketEvents.removeTag, data);
   }
 }
