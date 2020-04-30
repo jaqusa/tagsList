@@ -6,7 +6,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, namespace } from 'nuxt-property-decorator'
+import { Component, Vue, namespace, Watch } from 'nuxt-property-decorator'
 import Input from './Input/Input.vue'
 import List from './List/List.vue'
 import { ITag, socketEvents } from '../models'
@@ -20,26 +20,18 @@ const tag = namespace('tag')
   }
 })
 export default class TagsList extends Vue {
-  connected!: Vue
+  mounted() {
+    Vue.prototype.$socket.client.on(socketEvents.addTag, (data: ITag) => {
+      this.add(data)
+    })
 
-  beforeMount() {
-    this.connected = Vue.prototype.$socket.client.connected
-    if (this.connected) {
-      Vue.prototype.$socket.client.on(socketEvents.addTag, (data: ITag) => {
-        this.add(data)
-      })
+    Vue.prototype.$socket.client.on(socketEvents.editTag, (data: ITag) => {
+      this.edit(data)
+    })
 
-      Vue.prototype.$socket.client.on(socketEvents.editTag, (data: ITag) => {
-        this.edit(data)
-      })
-
-      Vue.prototype.$socket.client.on(
-        socketEvents.removeTag,
-        (data: number) => {
-          this.removeTag(data)
-        }
-      )
-    }
+    Vue.prototype.$socket.client.on(socketEvents.removeTag, (data: number) => {
+      this.removeTag(data)
+    })
   }
 
   //Mutations
@@ -60,11 +52,12 @@ export default class TagsList extends Vue {
     if (newTag.text) {
       if (newTag.index < 0) {
         newTag.color = this.randomColor()
-        this.connected
+
+        Vue.prototype.$socket.client.connected
           ? Vue.prototype.$socket.client.emit(socketEvents.addTag, newTag)
           : this.add(newTag)
       } else
-        this.connected
+        Vue.prototype.$socket.client.connected
           ? Vue.prototype.$socket.client.emit(socketEvents.editTag, newTag)
           : this.edit(newTag)
     }
@@ -83,7 +76,7 @@ export default class TagsList extends Vue {
   }
 
   remove(index: number): void {
-    this.connected
+    Vue.prototype.$socket.client.connected
       ? Vue.prototype.$socket.client.emit(socketEvents.removeTag, index)
       : this.removeTag(index)
   }
