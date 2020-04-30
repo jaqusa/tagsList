@@ -6,7 +6,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, namespace, Watch } from 'nuxt-property-decorator'
+import { Component, Vue, namespace } from 'nuxt-property-decorator'
 import Input from './Input/Input.vue'
 import List from './List/List.vue'
 import { ITag, socketEvents } from '../models'
